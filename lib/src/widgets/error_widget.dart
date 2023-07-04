@@ -61,6 +61,7 @@ class ErrorWidget extends StatelessWidget {
                     onPressed: tryAnotherCard, text: 'Try another card')
                 : emptyContainer,
             buttonMargin,
+            //TODO: add for mobile money
             method == CheckoutMethod.selectable || method == CheckoutMethod.bank
                 ? new WhiteButton(
                     onPressed: payWithBank,

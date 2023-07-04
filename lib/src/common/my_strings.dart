@@ -6,6 +6,8 @@ class Strings {
   static const String invalidCVC = 'Invalid cvv';
   static const String invalidAcc =
       'Please enter a valid 10-digit NUBAN number ';
+  static const String invalidMobileMoneyNumber =
+      'Please enter a valid mobile money number';
   static const String continue_ = 'Continue';
   static const String cancel = 'Cancel';
   static const String unKnownError = 'Unknown Error';

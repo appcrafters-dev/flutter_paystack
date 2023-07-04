@@ -91,6 +91,7 @@ class PaystackPlugin {
   ///
   /// [charge] - the charge object.
   ///
+  //TODO: Add documentation for mobile money
   /// [method] - The payment method to use(card, bank). It defaults to
   /// [CheckoutMethod.selectable] to allow the user to select. For [CheckoutMethod.bank]
   ///  or [CheckoutMethod.selectable], it is
@@ -180,6 +181,9 @@ class _Paystack {
           }
           break;
         case CheckoutMethod.bank:
+        //TODO: add case for mobileMoney
+        case CheckoutMethod.mobileMoney:
+
         case CheckoutMethod.selectable:
           if (charge.accessCode == null) {
             throw new ChargeException('Pass an accesscode');
@@ -221,4 +225,4 @@ typedef void OnTransactionChange<Transaction>(Transaction transaction);
 typedef void OnTransactionError<Object, Transaction>(
     Object e, Transaction transaction);
 
-enum CheckoutMethod { card, bank, selectable }
+enum CheckoutMethod { card, bank, mobileMoney, selectable }

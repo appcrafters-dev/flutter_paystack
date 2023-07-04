@@ -453,7 +453,7 @@ class _HomePageState extends State<HomePage> {
   bool get _isLocal => _radioValue == 0;
 }
 
-var banks = ['Selectable', 'Bank', 'Card'];
+var banks = ['Selectable', 'Bank', 'Card', 'Mobile Money'];
 
 CheckoutMethod _parseStringToMethod(String string) {
   CheckoutMethod method = CheckoutMethod.selectable;
@@ -463,6 +463,9 @@ CheckoutMethod _parseStringToMethod(String string) {
       break;
     case 'Card':
       method = CheckoutMethod.card;
+      break;
+    case 'Mobile Money':
+      method = CheckoutMethod.mobileMoney;
       break;
   }
   return method;

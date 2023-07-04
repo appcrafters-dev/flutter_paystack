@@ -23,7 +23,7 @@ class CheckoutResponse {
   /// otherwise
   bool status;
 
-  /// The means of payment. It may return [CheckoutMethod.bank] or [CheckoutMethod.card]
+  /// The means of payment. It may return [CheckoutMethod.bank] or [CheckoutMethod.card] or [CheckoutMethod.mobileMoney]
   CheckoutMethod method;
 
   /// If the transaction should be verified. See https://developers.paystack.co/v2.0/reference#verify-transaction.

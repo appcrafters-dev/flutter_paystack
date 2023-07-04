@@ -10,6 +10,7 @@ import 'package:flutter_paystack/src/widgets/base_widget.dart';
 import 'package:flutter_paystack/src/widgets/checkout/bank_checkout.dart';
 import 'package:flutter_paystack/src/widgets/checkout/card_checkout.dart';
 import 'package:flutter_paystack/src/widgets/checkout/checkout_method.dart';
+import 'package:flutter_paystack/src/widgets/checkout/mobile_money_checkout.dart';
 import 'package:flutter_paystack/src/widgets/common/extensions.dart';
 import 'package:flutter_paystack/src/widgets/custom_dialog.dart';
 import 'package:flutter_paystack/src/widgets/error_widget.dart';
@@ -188,7 +189,8 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
               Text(
                 'Pay',
                 style: TextStyle(
-                    fontSize: 14.0, color: context.textTheme().headline1?.color),
+                    fontSize: 14.0,
+                    color: context.textTheme().headline1?.color),
               ),
               SizedBox(
                 width: 5.0,
@@ -321,6 +323,18 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
           onResponse: _onPaymentResponse,
           onProcessingChange: _onProcessingChange,
         ),
+      ),
+      // TODO: change this for mobile money
+      new MethodItem(
+        text: 'M-PESA',
+        icon: Icons.mobile_friendly_outlined,
+        child: MobileMoneyCheckout(
+          publicKey: widget.publicKey,
+          charge: _charge,
+          service: widget.bankService,
+          onResponse: _onPaymentResponse,
+          onProcessingChange: _onProcessingChange,
+        ),
       )
     ];
   }
@@ -374,6 +388,9 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
       case CheckoutMethod.bank:
         checkedTab = 1;
         break;
+      case CheckoutMethod.mobileMoney:
+        checkedTab = 2;
+        break;
     }
     return checkedTab;
   }
@@ -412,6 +429,7 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
         _onPaymentError(null);
         _tabController!.index = 0;
       },
+      // TODO: ADD FOR MOBILE MONEY
     );
   }
 
@@ -421,7 +439,7 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
           if (_response!.card != null) {
             _response!.card!.nullifyNumber();
           }
-         Navigator.of(context).pop(_response);
+          Navigator.of(context).pop(_response);
         },
       );
 
@@ -436,7 +454,9 @@ class _CheckoutWidgetState extends BaseState<CheckoutWidget>
       response = CheckoutResponse.defaults();
       response.method = _tabController!.index == 0
           ? CheckoutMethod.card
-          : CheckoutMethod.bank;
+          : _tabController!.index == 1
+              ? CheckoutMethod.bank
+              : CheckoutMethod.mobileMoney;
     }
     if (response.card != null) {
       response.card!.nullifyNumber();
